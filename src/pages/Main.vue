@@ -36,7 +36,7 @@ export default {
   width: 100%;
   top: 50px;
   left: 0;
-  bottom: 0;
+  bottom: 100px;
   display: flex;
   flex-direction: column;
 }

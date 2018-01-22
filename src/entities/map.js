@@ -9,15 +9,31 @@ export class Map {
   move () {
     const hero = this.hero;
     hero.move();
-    const rightX = hero.x + hero.width;
+    let rightX = hero.x + hero.width;
     let topY = hero.y + hero.height;
     let isFalling = true;
     this.items.forEach(i => {
       if (i.move) i.move();
-      if (i.x < rightX && (i.x + i.width) > hero.x) {
-        const itemTop = i.y + i.height;
-        if (i.y < topY && hero.y < i.y) {
-          hero.y = hero.height + i.y - 1;
+      const itemTop = i.y + i.height;
+      const itemRight = i.x + i.width;
+
+      if (i.y < topY && itemTop > hero.y) {
+        if (i.x <= rightX && hero.x < i.x) {
+          hero.x = i.x - hero.width - 1;
+          rightX = hero.x + hero.width;
+          hero.xspeed = 0;
+          hero.xacc = 0;
+        } else if (itemRight >= hero.x && rightX > itemRight) {
+          hero.x = itemRight + 1;
+          rightX = hero.x + hero.width;
+          hero.xspeed = 0;
+          hero.xacc = 0;
+        }
+      }
+
+      if (i.x < rightX && itemRight > hero.x) {
+        if (i.y <= topY && hero.y < i.y) {
+          hero.y = i.y - hero.height - 1;
           topY = hero.y + hero.height;
           hero.yspeed = 0;
           hero.yacc = 0;
@@ -32,5 +48,9 @@ export class Map {
     });
 
     if (isFalling && hero.yacc >= 0) hero.yacc = -1;
+    if (topY < 0) {
+      hero.yacc = 0;
+      hero.yspeed = 0;
+    }
   }
 }

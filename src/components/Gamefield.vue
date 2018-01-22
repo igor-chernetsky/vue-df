@@ -1,5 +1,5 @@
 <template>
-  <div class="gamefield">
+  <div class="gamefield" :style="{width: styles.width, height: styles.height, bottom: styles.bottom + 'px', left: styles.left + 'px'}">
     <v-block v-for="(block, index) in map.items" :data="block" :key="index"></v-block>
     <v-block :data="map.hero"></v-block>
   </div>
@@ -12,6 +12,12 @@ export default {
   name: 'gamefield',
   data () {
     return {
+      styles: {
+        bottom: 0,
+        left: 0,
+        width: this.map.width + 'px',
+        height: this.map.height + 'px'
+      }
     };
   },
   props: ['map'],
@@ -35,8 +41,29 @@ export default {
         default: break;
       }
     });
+
+    const setStyles = (size) => {
+      const hero = this.map.hero;
+      if (size.width < this.map.width) {
+        const leftOffset = size.width / 2;
+        if (hero.x > leftOffset) {
+          this.styles.left = leftOffset - hero.x;
+        }
+      }
+      if (size.height < this.map.height) {
+        const bottomOffset = size.width / 2;
+        if (hero.y > bottomOffset) {
+          this.styles.bottom = bottomOffset - hero.y;
+        }
+      }
+    }
+    const size = {
+      width: this.$el.parentElement.offsetWidth,
+      height: this.$el.parentElement.offsetHeight
+    };
     setInterval(() => {
       this.map.move();
+      setStyles(size);
     }, 10);
   },
   beforeDestroy () {
@@ -45,8 +72,6 @@ export default {
   },
   components: {
     'v-block': Block
-  },
-  methods: {
   }
 };
 </script>
@@ -57,5 +82,6 @@ export default {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   flex: 90;
+  position: absolute;
 }
 </style>

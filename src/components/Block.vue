@@ -1,5 +1,5 @@
 <template>
-  <div class="block" v-bind:style="blockStyle">
+  <div class="block" :style="blockStyle">
   </div>
 </template>
 

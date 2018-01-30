@@ -1,10 +1,13 @@
 <template>
-  <div class="container">
-    <ul>
-      <li><router-link to="/">Main</router-link></li>
-      <li><router-link to="/maps">maps</router-link></li>
-    </ul>
-  </div>
+  <v-toolbar app>
+    <v-toolbar-title>Flat Defrag</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-toolbar-items class="hidden-sm-and-down">
+      <v-btn flat to="/">Main</v-btn>
+      <v-btn flat to="/maps">Maps</v-btn>
+      <v-btn flat to="/mapmanager">Manager</v-btn>
+    </v-toolbar-items>
+  </v-toolbar>
 </template>
 
 <script>

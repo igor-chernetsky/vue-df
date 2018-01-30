@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    MAPS
+    MAP Manager
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Maps',
+  name: 'MapManager',
   data () {
     return {
     };

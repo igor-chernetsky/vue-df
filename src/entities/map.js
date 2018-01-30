@@ -4,6 +4,7 @@ export class Map {
     this.height = height;
     this.items = [];
     this.hero = {};
+    this.respoun = {x: 100, y: 200};
   }
 
   move () {
@@ -21,13 +22,11 @@ export class Map {
         if (i.x <= rightX && hero.x < i.x) {
           hero.x = i.x - hero.width - 1;
           rightX = hero.x + hero.width;
-          hero.xspeed = 0;
-          hero.xacc = 0;
+          hero.stopX();
         } else if (itemRight >= hero.x && rightX > itemRight) {
           hero.x = itemRight + 1;
           rightX = hero.x + hero.width;
-          hero.xspeed = 0;
-          hero.xacc = 0;
+          hero.stopX();
         }
       }
 
@@ -35,13 +34,11 @@ export class Map {
         if (i.y <= topY && hero.y < i.y) {
           hero.y = i.y - hero.height - 1;
           topY = hero.y + hero.height;
-          hero.yspeed = 0;
-          hero.yacc = 0;
+          hero.stopY();
         } else if (itemTop >= hero.y && topY > itemTop) {
           hero.y = itemTop + 1;
           topY = hero.y + hero.height;
-          hero.yspeed = 0;
-          hero.yacc = 0;
+          hero.stopY();
         }
         if (isFalling && itemTop === hero.y - 1) isFalling = false;
       }
@@ -49,8 +46,21 @@ export class Map {
 
     if (isFalling && hero.yacc >= 0) hero.yacc = -1;
     if (topY < 0) {
-      hero.yacc = 0;
-      hero.yspeed = 0;
+      hero.stopY();
+      this.respounHero();
     }
+    if (hero.x < 0) {
+      hero.x = 0;
+      hero.stopX();
+    }
+    if (rightX > this.width) {
+      hero.x = this.width - hero.width;
+      hero.stopX();
+    }
+  }
+
+  respounHero () {
+    this.hero.x = this.respoun.x;
+    this.hero.y = this.respoun.y;
   }
 }

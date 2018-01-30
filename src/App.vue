@@ -1,12 +1,24 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <v-app id="app">
+    <v-header></v-header>
+    <v-content>
+      <v-container fluid>
+        <router-view/>
+      </v-container>
+    </v-content>
+    <v-footer app>
+      Igor Ch. 2018
+    </v-footer>
+  </v-app >
 </template>
 
 <script>
+import Header from './components/Header';
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    'v-header': Header
+  }
 };
 </script>
 
@@ -17,6 +29,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

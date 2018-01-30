@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <v-header></v-header>
+  <div class="display">
     <v-gamefield :map="map"></v-gamefield>
     <div class="game-info"></div>
   </div>
@@ -8,7 +7,6 @@
 
 <script>
 import Gamefield from '../components/Gamefield';
-import Header from '../components/Header';
 import { getMap, getHero } from '../services/map.service';
 
 export default {
@@ -23,22 +21,22 @@ export default {
     this.map = getMap(hero);
   },
   components: {
-    'v-gamefield': Gamefield,
-    'v-header': Header
+    'v-gamefield': Gamefield
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.container {
-  position: fixed;
+.display {
+  position: absolute;
   width: 100%;
-  top: 50px;
+  top: 70px;
   left: 0;
   bottom: 100px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .game-info {
   background-color: #efefef;

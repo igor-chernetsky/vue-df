@@ -1,5 +1,6 @@
 <template>
   <div class="block" :style="blockStyle">
+    <span v-if="data.dir">{{data.dir === 1 ? '&gt;' : '&lt;'}}</span>
   </div>
 </template>
 
